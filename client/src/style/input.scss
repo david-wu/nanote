@@ -1,0 +1,26 @@
+input, select{
+    width: 100%;
+    height: 50px;
+    border-radius: 6px;
+    border: solid 3px $grey;
+    padding: 5px;
+    text-align: center;
+    box-shadow: none;
+    transition: border 0.2s;
+
+    &:hover{
+        border: solid 3px $greyBrandColor;
+        outline-width: 0;
+        outline: none;
+    }
+
+    &:focus{
+        border: solid 3px $brandColor;
+        outline-width: 0;
+        outline: none;
+    }
+
+    option:checked{
+        background-color: $brandColor;
+    }
+}

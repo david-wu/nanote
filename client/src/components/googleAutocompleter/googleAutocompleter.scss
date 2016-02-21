@@ -1,0 +1,31 @@
+// Removes the google logo
+.hdpi::after{
+    background-image: none !important;
+    width: 0;
+    height: 0;
+}
+
+.pac-container.pac-logo.hdpi{
+    background-color: rgba(255,255,255,0.9);
+
+    .pac-item:hover{
+        cursor: pointer;
+        background-color: $greyBrandColor;
+        color: white;
+        span.pac-item-query{
+            color: white;
+        }
+    }
+
+    .pac-item.pac-item-selected{
+        background-color: $brandColor;
+        color: white;
+        span.pac-item-query{
+            color: white;
+        }
+    }
+}
+
+input.autocomplete{
+    border-radius: 0;
+}

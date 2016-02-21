@@ -1,0 +1,19 @@
+.form{
+    background-color: whitesmoke;
+    width: 350px;
+    padding: 20px;
+    flex-shrink: 0;
+
+    .form-row{
+        display: flex;
+        align-items: center;
+        padding: 5px;
+
+        .tag{
+            width: 100px;
+            font-size: 16px;
+            margin: 0 10px 0 0;
+            flex-shrink: 0;
+        }
+    }
+}

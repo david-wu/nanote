@@ -1,0 +1,30 @@
+body{
+    font-family: $main-font;
+    color: $darkBrandColor;
+}
+
+.float-right{
+    float: right;
+}
+
+.invisible{
+    visibility: hidden;
+}
+
+.shrunk-horizontal{
+    flex-grow: 0;
+    width: 0;
+    overflow: hidden;
+}
+
+.clickable{
+    cursor: pointer;
+}
+
+h1{
+    height: 75px;
+    padding: 30px;
+    font-size: 24px;
+    background-color: $grey;
+    color: white;
+}

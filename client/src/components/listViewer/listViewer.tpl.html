@@ -1,0 +1,13 @@
+<div class="contents flex column" ng-class="{focused: form.focus}">
+
+    <list-search-bar list="list"></list-search-bar>
+
+    <div class="table-container">
+        <table>
+            <tr ng-if="list.children.length" ng-repeat="d in list.filteredChildren" ng-class="{light: $odd, dark: $even || $first, selected: d===list.selection}">
+                <td ng-repeat="column in viewerColumns" ng-class="column.class(d)" ng-click="column.clickHandler(d);toggleSelection(d);" ng-bind-html="column.html(d)"></td>
+            </tr>
+        </table>
+    </div>
+
+</div>

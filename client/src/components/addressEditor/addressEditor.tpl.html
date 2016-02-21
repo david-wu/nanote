@@ -1,0 +1,44 @@
+<form class="form">
+
+    <div class="flex end-justify spaced-items">
+        <spin-button click-handler="clip" class="mediumButtonClass" button-text="Clip"></spin-button>
+        <spin-button click-handler="delete" class="mediumButtonClass" button-text="Delete"></spin-button>
+        <spin-button click-handler="close" class="mediumButtonClass" button-text="Close"></spin-button>
+    </div>
+
+    <label class="form-row">
+        <div class="tag">Type</div>
+        <radio-buttons buttons="typeButtons" form="address.data.type"></radio-buttons>
+    </label>
+
+    <label class="form-row">
+        <div class="tag">Street Number</div>
+        <input type="number" ng-model="address.data.streetNumber"></input>
+    </label>
+
+    <label class="form-row">
+        <div class="tag">Street</div>
+        <input type="text" ng-model="address.data.route"></input>
+    </label>
+
+    <label class="form-row">
+        <div class="tag">City</div>
+        <input type="text" ng-model="address.data.locality"></input>
+    </label>
+
+    <label class="form-row">
+        <div class="tag">State</div>
+        <input type="text" ng-model="address.data.administrativeAreaLevel1"></input>
+    </label>
+
+    <label class="form-row">
+        <div class="tag">Postal Code</div>
+        <input type="number" ng-model="address.data.postalCode"></input>
+    </label>
+
+    <label class="form-row">
+        <div class="tag">Country</div>
+        <input type="text" ng-model="address.data.country"></input>
+    </label>
+
+</form>

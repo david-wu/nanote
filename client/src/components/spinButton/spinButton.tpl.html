@@ -1,0 +1,4 @@
+<div class="button" ng-class="class" ng-click="buttonHandler(); $event.stopPropagation();" ng-disabled="spinning">
+    <i class="fa fa-spinner fa-spin fa-1x centered" ng-if="spinning"></i>
+    <span ng-if="!spinning">{{buttonText}}</span>
+</div>
