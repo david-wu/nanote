@@ -18,9 +18,6 @@ function ListViewer($timeout, Column){
 }
 
 function linkFunc($timeout, Column, scope, element, attrs){
-    _.defaults(scope, {
-        form: {},
-    });
 
     scope.$watchCollection('columns', function(column){
         scope.viewerColumns = _.map(scope.columns, function(column){
@@ -28,9 +25,17 @@ function linkFunc($timeout, Column, scope, element, attrs){
         });
     });
 
+
+    // todo: selectedAction should only exist within this view, remove from the list model
+    scope.$watch('list.selectedAction', function(action){
+        if(action==='create'){
+            scope.list.selection = undefined;
+        }
+    })
+
     scope.toggleSelection = function(selection){
         scope.list.toggleSelection(selection);
-    }
+    };
 
     $('body').on('click', setFocus);
     $('body').on('keydown', changeSelection);
@@ -39,11 +44,16 @@ function linkFunc($timeout, Column, scope, element, attrs){
         $('body').off('keydown', changeSelection);
     });
 
+    scope.form = scope.form || {};
     function setFocus(e) {
         scope.form.focus = $(e.target).closest(element).length;
+        if(scope.form.focus){
+            element.find('list-search-bar input').focus();
+        }
         $timeout(_.noop);
     }
 
+    // todo: make input field always selected, then listen for that element only
     function changeSelection(e){
         if(!scope.form.focus){return;}
 
@@ -59,6 +69,5 @@ function linkFunc($timeout, Column, scope, element, attrs){
 
         $timeout(_.noop);
     }
-
 
 }

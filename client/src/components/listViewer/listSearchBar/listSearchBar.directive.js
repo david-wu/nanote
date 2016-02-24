@@ -16,17 +16,17 @@ function ListSearchBar(){
 function linkFunc(scope, element, attrs){
 
     scope.keyHandler = function(e){
-        if(e.keyCode === 13 && !scope.list.selection){
-            scope.list.create({name: scope.form});
-            scope.form = '';
+        if(e.keyCode===13 && !scope.list.selection){
+            scope.list.create({name: scope.input});
+            scope.input = '';
             e.preventDefault();
         }
     };
 
-
-    scope.$watch('form', function(){
-        scope.list.sortBy(scope.form);
+    scope.input = '';
+    scope.$watch('input', function(){
+        scope.list.sortBy(scope.input);
         scope.list.selectFirst();
-    })
+    });
 
 }

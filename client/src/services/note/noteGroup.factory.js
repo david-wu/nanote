@@ -11,11 +11,6 @@ function NoteGroupFactory(List, Note){
         List.call(this);
 
         this.syncFrom();
-
-        var that = this;
-        setInterval(function(){
-            that.syncTo()
-        }, 1000);
     }
 
     NoteGroup.prototype = Object.create(List.prototype);
@@ -26,26 +21,16 @@ function NoteGroupFactory(List, Note){
     }
 
     NoteGroup.prototype.syncFrom = function(){
-        var str = localStorage.getItem('notes');
-        var obj = JSON.parse(str);
-
         var that = this;
-        _.each(obj.children, function(child){
+
+        var storageObj = JSON.parse(localStorage.getItem('notes'));
+        _.each(storageObj.children, function(child){
             that.create(child);
-        })
-
-        console.log(this.children[0]);
-
+        });
     };
 
     NoteGroup.prototype.syncTo = function(){
-        // this.syncToStorage('notes');
-
-        // var str = JSON.stringify(this.children);
-        // console.log(this.stringify())
-
         localStorage.setItem('notes', this.stringify());
-
     };
 
     NoteGroup.prototype.stringify = function(){
@@ -54,9 +39,9 @@ function NoteGroupFactory(List, Note){
         });
 
         return JSON.stringify({
-            children: childStrings
+            children: childStrings,
         });
-    }
+    };
 
     return NoteGroup;
 }

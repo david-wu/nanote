@@ -6,18 +6,15 @@
     </label>
 
     <label class="form-row">
-        <div class="tag">Tags</div>
-        <input type="text" ng-model="note.tags"></input>
+        <div class="tag">Type</div>
+        <input type="text" ng-model="note.type"></input>
     </label>
 
-    <label class="form-row">
-        <div class="tag">Language</div>
-        <a href="asdf">test</a>
-    </label>
+    <div>
+        tags: {{note.tags}}
+    </div>
 
-    <label class="form-row">
-        <div class="tag">Language</div>
-        <input type="text" ng-model="note.language"></input>
+    <label>
+        <spin-button button-text="Delete" click-handler="delete" class="{large: true}" style="float:right;margin-top:20px;"></spin-button>
     </label>
-
 </form>

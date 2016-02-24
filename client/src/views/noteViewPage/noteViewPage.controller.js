@@ -1,16 +1,14 @@
 angular.module('views')
     .controller('NoteViewPage', [
         '$scope',
-        'User',
         'NoteGroup',
         NoteViewPage
     ]);
 
-function NoteViewPage($scope, User, NoteGroup){
-    $scope.user = new User();
-    $scope.noteGroup = new NoteGroup();
+function NoteViewPage($scope, NoteGroup){
+    $scope.noteList = new NoteGroup();
 
-    $scope.groupViewerColumns = [
+    $scope.listViewerColumns = [
         {
             html: function(d){
                 return d.name;

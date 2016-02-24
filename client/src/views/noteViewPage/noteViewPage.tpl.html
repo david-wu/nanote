@@ -1,5 +1,6 @@
-<div class="flex" style="height:100%;width:100%;">
-    <list-viewer list="noteGroup" columns="groupViewerColumns"></list-viewer>
-    <note-viewer ng-if="noteGroup.selection" note="noteGroup.selection"></note-viewer>
+<div class="flex noteViewPage" style="height:100%;width:100%;">
+    <list-viewer list="noteList" columns="listViewerColumns"></list-viewer>
+    <note-meta-editor note="noteList.selection" ng-if="noteList.selectedAction==='meta'"></note-meta-editor>
+    <note-viewer note="noteList.selection"></note-viewer>
 </div>
 

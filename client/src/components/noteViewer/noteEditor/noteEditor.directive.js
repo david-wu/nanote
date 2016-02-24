@@ -1,19 +1,20 @@
 angular.module('components')
     .directive('noteEditor', [
+        '$timeout',
         NoteEditor
     ]);
 
-function NoteEditor(){
+function NoteEditor($timeout){
     return {
         scope: {
-            note: '=',
+            note: '=?',
         },
         templateUrl: 'components/noteViewer/noteEditor/noteEditor.tpl.html',
-        link: linkFunc.bind(null),
+        link: linkFunc.bind(null, $timeout),
     };
 }
 
-function linkFunc(scope, element, attrs){
+function linkFunc($timeout, scope, element, attrs){
 
     var editor = ace.edit(element[0]);
     editor.setTheme('ace/theme/monokai');
@@ -23,17 +24,22 @@ function linkFunc(scope, element, attrs){
 
     var editSession = editor.getSession();
     editSession.on('change', function(){
-        scope.note.content = editor.getValue();
+        if(scope.note){
+            scope.note.setContent(editor.getValue());
+        }
     });
 
     scope.$watch('note', function(currNote, prevNote){
         if(prevNote === currNote){return;}
 
-        var editorContent = editor.getValue();
-        if(editorContent !== prevNote.content){
-            prevNote.content = editorContent;
-            prevNote.lastModified = Date.now();
+        if(prevNote){
+            prevNote.setContent(editor.getValue());
         }
-    })
+
+        if(currNote){
+            editor.setValue(currNote.content);
+        }
+
+    });
 
 }

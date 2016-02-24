@@ -24,4 +24,10 @@ function linkFunc(scope, element, attrs){
             value: 'public',
         },
     ];
+
+    scope.delete = function(){
+        scope.note.parent.remove(scope.note);
+        scope.note.parent.syncTo();
+        scope.note = undefined;
+    }
 }

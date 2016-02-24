@@ -8,8 +8,35 @@ function ListFactory(){
     function List(){
         this.children = [];
         this.filteredChildren = [];
+
+        this.selectedAction = 'open';
+        this.actions = [
+            {
+                displayName: 'Open',
+                value: 'open',
+            },
+            {
+                displayName: 'Create',
+                value: 'create',
+            },
+            {
+                displayName: 'Meta',
+                value: 'meta',
+            },
+        ];
     }
 
+    // List.prototype.act = function(payload){
+    //     console.log(this.selectedAction);
+    // };
+
+    // List.prototype.getAction = function(){
+    //     if(!this.selection){
+    //         return 'create';
+    //     }else{
+    //         return this.selectedAction;
+    //     }
+    // };
 
     List.prototype.add = function(obj){
         obj.parent = this;
@@ -23,15 +50,7 @@ function ListFactory(){
     };
 
 
-    List.prototype.syncFromStorage = function(tag){
-        localStorage.getItem(tag);
-    };
-    List.prototype.syncToStorage = function(tag){
-        localStorage.setItem(tag);
-    }
-
-
-    List.prototype.sortBy = function(query, keys){
+    List.prototype.sortBy = function(query){
         if(!query || !query.length || !this.children.length){
             this.filteredChildren = this.children;
             return;
@@ -45,7 +64,7 @@ function ListFactory(){
             location: 0,
             distance: 100,
             maxPatternLength: 32,
-            keys: ['name'],
+            keys: ['name', 'tags'],
         });
 
         this.filteredChildren = fuse.search(query) || this.children;
@@ -84,19 +103,6 @@ function ListFactory(){
         this.selection = this.filteredChildren[index];
     };
 
-// var options = {
-//   caseSensitive: false,
-//   includeScore: false,
-//   shouldSort: true,
-//   threshold: 0.6,
-//   location: 0,
-//   distance: 100,
-//   maxPatternLength: 32,
-//   keys: ['name'],
-// };
-
-// var fuse = new Fuse(list, options); // "list" is the item array
-// var result = fuse.search("");
 
     return List;
 }

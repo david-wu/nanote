@@ -15,10 +15,6 @@ function NoteFactory($http, $location){
         });
     }
 
-    Note.prototype.baseUrl = function(){
-        return '/api/Note';
-    };
-
     Note.prototype.stringable = function(){
         var clone = _.clone(this);
         delete clone.parent;
@@ -26,17 +22,22 @@ function NoteFactory($http, $location){
         return clone;
     };
 
-    // Note.prototype.save = function(query){
-    //     var options = {
-    //         method: 'POST',
-    //         url: this.baseUrl(),
-    //         data: JSON.stringify(this),
-    //     };
-    //     return $http(options)
-    //         .then(function(res){
-    //             console.log(res)
-    //         });
-    // };
+    Note.prototype.setContent = function(content){
+        if(this.content === content){return;}
+        this.content = content;
+        this.lastModified = Date.now();
+        this.updateTags();
+        this.parent.syncTo();
+    }
+
+    Note.prototype.updateTags = function(){
+        this.tags = this.content.match(/#(\S+)/gm);
+    };
+
+    Note.prototype.delete = function(){
+        this.parent.remove(this);
+        this.parent.syncTo();
+    };
 
     return Note;
 }
