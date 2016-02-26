@@ -37,6 +37,7 @@ function NoteFactory($http, $location){
     Note.prototype.delete = function(){
         this.parent.remove(this);
         this.parent.syncTo();
+        console.log(this.parent)
     };
 
     return Note;

@@ -2,12 +2,12 @@
 
     <radio-buttons buttons="list.actions" form="list.selectedAction" style="height:20px;"></radio-buttons>
 
-    <list-search-bar list="list"></list-search-bar>
+    <list-search-bar list="list" action="list.selectedAction"></list-search-bar>
 
     <div class="table-container">
         <table>
-            <tr ng-if="list.children.length" ng-repeat="d in list.filteredChildren track by d.name" ng-class="{light: $odd, dark: $even || $first, selected: d===list.selection}">
-                <td ng-repeat="column in viewerColumns" ng-class="column.class(d)" ng-click="column.clickHandler(d);toggleSelection(d);" ng-bind-html="column.html(d)"></td>
+            <tr ng-if="list.children.length" ng-repeat="d in list.filteredChildren track by d.name+$index" ng-class="{light: $odd, dark: $even || $first, selected: d===list.selection}">
+                <td ng-repeat="column in viewerColumns" ng-class="column.class(d)" ng-click="list.toggleSelection(d);" ng-bind-html="column.html(d)"></td>
             </tr>
         </table>
     </div>

@@ -10,33 +10,26 @@ function ListFactory(){
         this.filteredChildren = [];
 
         this.selectedAction = 'open';
-        this.actions = [
-            {
-                displayName: 'Open',
-                value: 'open',
-            },
-            {
-                displayName: 'Create',
-                value: 'create',
-            },
-            {
-                displayName: 'Meta',
-                value: 'meta',
-            },
-        ];
     }
 
-    // List.prototype.act = function(payload){
-    //     console.log(this.selectedAction);
-    // };
-
-    // List.prototype.getAction = function(){
-    //     if(!this.selection){
-    //         return 'create';
-    //     }else{
-    //         return this.selectedAction;
-    //     }
-    // };
+    List.prototype.actions = [
+        {
+            displayName: 'Open',
+            value: 'open',
+        },
+        {
+            displayName: 'Create',
+            value: 'create',
+        },
+        {
+            displayName: 'Meta',
+            value: 'meta',
+        },
+        {
+            displayName: 'Markdown',
+            value: 'md',
+        },
+    ];
 
     List.prototype.add = function(obj){
         obj.parent = this;

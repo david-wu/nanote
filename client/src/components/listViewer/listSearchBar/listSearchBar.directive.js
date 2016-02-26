@@ -7,6 +7,7 @@ function ListSearchBar(){
     return {
         scope: {
             list: '=',
+            action: '=',
         },
         templateUrl: 'components/listViewer/listSearchBar/listSearchBar.tpl.html',
         link: linkFunc.bind(null),
@@ -16,10 +17,12 @@ function ListSearchBar(){
 function linkFunc(scope, element, attrs){
 
     scope.keyHandler = function(e){
-        if(e.keyCode===13 && !scope.list.selection){
-            scope.list.create({name: scope.input});
-            scope.input = '';
-            e.preventDefault();
+        if(e.keyCode===13){
+            if(scope.action==='create'){
+                scope.list.create({name: scope.input});
+                scope.input = '';
+                e.preventDefault();
+            }
         }
     };
 
@@ -28,5 +31,24 @@ function linkFunc(scope, element, attrs){
         scope.list.sortBy(scope.input);
         scope.list.selectFirst();
     });
+
+
+
+
+
+    // Selects the inputEl when escape key is pressed
+    $('body').on('keydown', changeSelection);
+    scope.$on('$destroy', function(){
+        $('body').off('keydown', changeSelection);
+    });
+    function changeSelection(e){
+        if(e.keyCode===27){
+            var inputEl = element.find('input')
+            if(!inputEl.is(':focus')){
+                inputEl.focus();
+                e.preventDefault();
+            }
+        }
+    }
 
 }

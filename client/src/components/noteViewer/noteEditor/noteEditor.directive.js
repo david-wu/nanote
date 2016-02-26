@@ -17,9 +17,12 @@ function NoteEditor($timeout){
 function linkFunc($timeout, scope, element, attrs){
 
     var editor = ace.edit(element[0]);
+    editor.$blockScrolling = Infinity;
     editor.setTheme('ace/theme/monokai');
     if(scope.note){
         editor.setValue(scope.note.content);
+            editor.clearSelection();
+
     }
 
     var editSession = editor.getSession();
@@ -32,14 +35,27 @@ function linkFunc($timeout, scope, element, attrs){
     scope.$watch('note', function(currNote, prevNote){
         if(prevNote === currNote){return;}
 
-        if(prevNote){
-            prevNote.setContent(editor.getValue());
-        }
-
         if(currNote){
             editor.setValue(currNote.content);
+            editor.clearSelection();
         }
-
     });
+
+
+    // Selects the textEl when enter key is pressed
+    $('body').on('keydown', changeSelection);
+    scope.$on('$destroy', function(){
+        $('body').off('keydown', changeSelection);
+    });
+    function changeSelection(e){
+        if(e.keyCode===13){
+            var textEl = element.find('textarea')
+            if(!textEl.is(':focus')){
+                textEl.focus();
+                e.preventDefault();
+            }
+        }
+    }
+
 
 }

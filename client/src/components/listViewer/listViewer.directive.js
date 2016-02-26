@@ -26,16 +26,14 @@ function linkFunc($timeout, Column, scope, element, attrs){
     });
 
 
-    // todo: selectedAction should only exist within this view, remove from the list model
-    scope.$watch('list.selectedAction', function(action){
-        if(action==='create'){
-            scope.list.selection = undefined;
-        }
-    })
+    scope.$watch(function(){
+        var inputBarEl = element.find('list-search-bar input');
+        return inputBarEl.is(':focus')
+    }, function(focused){
+        scope.form.focus = focused;
+        $timeout(_.noop);
+    });
 
-    scope.toggleSelection = function(selection){
-        scope.list.toggleSelection(selection);
-    };
 
     $('body').on('click', setFocus);
     $('body').on('keydown', changeSelection);
@@ -43,6 +41,21 @@ function linkFunc($timeout, Column, scope, element, attrs){
         $('body').off('click', setFocus);
         $('body').off('keydown', changeSelection);
     });
+
+
+$('body').on('keydown', globalSelector)
+function globalSelector(e){
+    if(e.keyCode===75 && e.metaKey){
+        scope.list.selectAbove();
+        $timeout(_.noop);
+        e.preventDefault();
+    }else if(e.keyCode===74 && e.metaKey){
+        scope.list.selectBelow();
+        e.preventDefault();
+        $timeout(_.noop);
+
+    }
+}
 
     scope.form = scope.form || {};
     function setFocus(e) {
@@ -57,12 +70,31 @@ function linkFunc($timeout, Column, scope, element, attrs){
     function changeSelection(e){
         if(!scope.form.focus){return;}
 
+
         if(e.keyCode===38){
             scope.list.selectAbove();
+            e.preventDefault();
         }else if(e.keyCode===40){
             scope.list.selectBelow();
-        }else if(e.keyCode===27){
-            scope.list.setSelection(undefined);
+            e.preventDefault();
+
+        // Tab and shift+tab
+        }else if(e.keyCode===9){
+            var actions = _.map(scope.list.actions, 'value');
+            var index = _.indexOf(actions, scope.list.selectedAction)
+
+            if(e.shiftKey){
+                if(--index < 0){
+                    index = actions.length-1;
+                }
+            }else{
+                if(++index > actions.length-1){
+                    index = 0;
+                }
+            }
+            scope.list.selectedAction = scope.list.actions[index].value;
+            e.preventDefault();
+            $timeout(_.noop);
         }else{
             return;
         }
