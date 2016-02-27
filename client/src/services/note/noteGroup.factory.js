@@ -57,7 +57,7 @@ function NoteGroupFactory(List, Note){
         }
         this.create({
             name: 'intro',
-            content: 'Welcome to nanote!\nPress Esc to select the NoteListViewer!\nPress enter to select NoteViewer!\nCreate searchable #tags in your note.content!\n ⌘+j and ⌘+k or arrow keys to scroll between notes\n tab and shift+tab to select actions\n'
+            content: 'Welcome to nanote!\nPress Esc to select the NoteListViewer!\nPress enter to select NoteViewer!\nTab and shift+tab to select actions while in NoteListViewer\n⌘+j and ⌘+k or arrow keys to scroll between notes\nCreate searchable #tags in your note content!\n'
         });
     };
 
