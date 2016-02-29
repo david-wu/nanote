@@ -8,24 +8,6 @@
     <body ng-app="app">
         <main></main>
 
-
-        <script>
-
-            navigator
-                .serviceWorker
-                .register('serviceWorker/index.js')
-                .then(function(r) {
-                    console.log('Cats are now available offline');
-                })
-                .catch(function(e) {
-                    console.log('Cats are NOT available offline');
-                    console.log(e);
-                });
-
-
-        </script>
-
-
         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB30ywgjcB4F_gGmIF9-ry8-aiY-wI0AD4&signed_in=true&libraries=places"></script>
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.3.0/lodash.js"></script>
