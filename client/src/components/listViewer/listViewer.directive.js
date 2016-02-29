@@ -37,25 +37,25 @@ function linkFunc($timeout, Column, scope, element, attrs){
 
     $('body').on('click', setFocus);
     $('body').on('keydown', changeSelection);
+    $('body').on('keydown', globalSelector)
     scope.$on('$destroy', function(){
         $('body').off('click', setFocus);
         $('body').off('keydown', changeSelection);
+        $('body').off('keydown', globalSelector);
     });
 
 
-$('body').on('keydown', globalSelector)
-function globalSelector(e){
-    if(e.keyCode===75 && e.metaKey){
-        scope.list.selectAbove();
-        $timeout(_.noop);
-        e.preventDefault();
-    }else if(e.keyCode===74 && e.metaKey){
-        scope.list.selectBelow();
-        e.preventDefault();
-        $timeout(_.noop);
-
+    function globalSelector(e){
+        if(e.keyCode===75 && e.metaKey){
+            scope.list.selectAbove();
+            e.preventDefault();
+            $timeout(_.noop);
+        }else if(e.keyCode===74 && e.metaKey){
+            scope.list.selectBelow();
+            e.preventDefault();
+            $timeout(_.noop);
+        }
     }
-}
 
     scope.form = scope.form || {};
     function setFocus(e) {

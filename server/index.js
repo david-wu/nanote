@@ -26,3 +26,4 @@ function strapApp(app){
     app.use(cors());
     return app;
 }
+
