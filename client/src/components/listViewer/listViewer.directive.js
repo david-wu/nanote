@@ -2,10 +2,11 @@ angular.module('components')
     .directive('listViewer', [
         '$timeout',
         'Column',
+        'KeyHandler',
         ListViewer
     ]);
 
-function ListViewer($timeout, Column){
+function ListViewer($timeout, Column, KeyHandler){
     return {
         scope: {
             list: '=',
@@ -13,11 +14,15 @@ function ListViewer($timeout, Column){
             form: '=?',
         },
         templateUrl: 'components/listViewer/listViewer.tpl.html',
-        link: linkFunc.bind(null, $timeout, Column),
+        link: linkFunc.bind(null, $timeout, Column, KeyHandler),
     };
 }
 
-function linkFunc($timeout, Column, scope, element, attrs){
+function linkFunc($timeout, Column, KeyHandler, scope, element, attrs){
+
+    // setInterval(function(){
+    //     console.log(scope.list.getTags())
+    // }, 2000);
 
     scope.$watchCollection('columns', function(column){
         scope.viewerColumns = _.map(scope.columns, function(column){
@@ -36,26 +41,9 @@ function linkFunc($timeout, Column, scope, element, attrs){
 
 
     $('body').on('click', setFocus);
-    $('body').on('keydown', changeSelection);
-    $('body').on('keydown', globalSelector)
     scope.$on('$destroy', function(){
         $('body').off('click', setFocus);
-        $('body').off('keydown', changeSelection);
-        $('body').off('keydown', globalSelector);
     });
-
-
-    function globalSelector(e){
-        if(e.keyCode===75 && e.metaKey){
-            scope.list.selectAbove();
-            e.preventDefault();
-            $timeout(_.noop);
-        }else if(e.keyCode===74 && e.metaKey){
-            scope.list.selectBelow();
-            e.preventDefault();
-            $timeout(_.noop);
-        }
-    }
 
     scope.form = scope.form || {};
     function setFocus(e) {
@@ -66,40 +54,55 @@ function linkFunc($timeout, Column, scope, element, attrs){
         $timeout(_.noop);
     }
 
-    // todo: make input field always selected, then listen for that element only
-    function changeSelection(e){
-        if(!scope.form.focus){return;}
 
-
-        if(e.keyCode===38){
-            scope.list.selectAbove();
-            e.preventDefault();
-        }else if(e.keyCode===40){
+    var keyHandler = {
+        commandJ: function(e){
             scope.list.selectBelow();
+            $timeout(_.noop);
             e.preventDefault();
-
-        // Tab and shift+tab
-        }else if(e.keyCode===9){
+        },
+        down: function(e){
+            scope.list.selectBelow();
+            $timeout(_.noop);
+            e.preventDefault();
+        },
+        commandK: function(e){
+            scope.list.selectAbove();
+            $timeout(_.noop);
+            e.preventDefault();
+        },
+        up: function(e){
+            scope.list.selectAbove();
+            $timeout(_.noop);
+            e.preventDefault();
+        },
+        tab: function(e){
+            if(!scope.form.focus){return;}
             var actions = _.map(scope.list.actions, 'value');
             var index = _.indexOf(actions, scope.list.selectedAction)
-
-            if(e.shiftKey){
-                if(--index < 0){
-                    index = actions.length-1;
-                }
-            }else{
-                if(++index > actions.length-1){
-                    index = 0;
-                }
+            if(++index > actions.length-1){
+                index = 0;
             }
             scope.list.selectedAction = scope.list.actions[index].value;
-            e.preventDefault();
             $timeout(_.noop);
-        }else{
-            return;
-        }
+            e.preventDefault();
+        },
+        shiftTab: function(e){
+            if(!scope.form.focus){return;}
+            var actions = _.map(scope.list.actions, 'value');
+            var index = _.indexOf(actions, scope.list.selectedAction)
+            if(--index < 0){
+                index = actions.length-1;
+            }
+            scope.list.selectedAction = scope.list.actions[index].value;
+            $timeout(_.noop);
+            e.preventDefault();
+        },
+    };
 
-        $timeout(_.noop);
-    }
+    KeyHandler.handlers.push(keyHandler);
+    scope.$on('$destroy', function(){
+        _.pull(KeyHandler.handlers, keyHandler);
+    });
 
 }

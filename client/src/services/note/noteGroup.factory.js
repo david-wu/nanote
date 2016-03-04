@@ -2,10 +2,11 @@ angular.module('services')
     .factory('NoteGroup', [
         'List',
         'Note',
+        'TagGroup',
         NoteGroupFactory
     ]);
 
-function NoteGroupFactory(List, Note){
+function NoteGroupFactory(List, Note, TagGroup){
 
     function NoteGroup(){
         List.call(this);
@@ -18,6 +19,15 @@ function NoteGroupFactory(List, Note){
 
     NoteGroup.prototype = Object.create(List.prototype);
     NoteGroup.prototype.constructor = List.constructor;
+
+    // Return a tagGroup
+    NoteGroup.prototype.getTags = function(){
+        var tags = _.map(this.children, function(note){
+            return note.tags;
+        });
+
+        return new TagGroup(tags);
+    }
 
     NoteGroup.prototype.create = function(options){
         return this.add(new Note(options));
@@ -57,7 +67,7 @@ function NoteGroupFactory(List, Note){
         }
         this.create({
             name: 'intro',
-            content: 'Welcome to nanote!\nPress Esc to select the NoteListViewer!\nPress enter to select NoteViewer!\nTab and shift+tab to select actions while in NoteListViewer\n⌘+j and ⌘+k or arrow keys to scroll between notes\nCreate searchable #tags in your note content!\n'
+            content: 'Welcome to nanote!\nPress Esc to select the NoteListViewer!\nPress enter to select NoteViewer!\nTab and shift+tab to select actions while in NoteListViewer\n⌘+j and ⌘+k or arrow keys to scroll between notes\nCreate searchable #tags in your note content!\n',
         });
     };
 

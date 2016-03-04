@@ -1,19 +1,20 @@
 angular.module('components')
     .directive('noteMetaEditor', [
+        'KeyHandler',
         NoteMetaEditor
     ]);
 
-function NoteMetaEditor(){
+function NoteMetaEditor(KeyHandler){
     return {
         scope: {
             note: '=',
         },
         templateUrl: 'components/noteViewer/noteMetaEditor/noteMetaEditor.tpl.html',
-        link: linkFunc.bind(null),
+        link: linkFunc.bind(null, KeyHandler),
     };
 }
 
-function linkFunc(scope, element, attrs){
+function linkFunc(KeyHandler, scope, element, attrs){
     scope.accessButtons = [
         {
             text: 'Private',
@@ -30,4 +31,22 @@ function linkFunc(scope, element, attrs){
         scope.note.parent.syncTo();
         scope.note = undefined;
     }
+
+
+
+    // var keyHandler = {
+    //     tab: function(e){
+    //         console.log('overloaded!')
+    //         e.preventDefault();
+    //     },
+    //     shiftTab: function(e){
+    //         console.log('overloaded!')
+    //         e.preventDefault();
+    //     },
+    // };
+
+    // KeyHandler.handlers.push(keyHandler);
+    // scope.$on('$destroy', function(){
+    //     _.pull(KeyHandler.handlers, keyHandler);
+    // });
 }

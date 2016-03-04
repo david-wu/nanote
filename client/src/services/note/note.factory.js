@@ -12,6 +12,7 @@ function NoteFactory($http, $location){
         _.defaults(this, {
             content: '',
             access: 'private',
+            tags: [],
         });
     }
 

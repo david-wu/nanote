@@ -25,10 +25,6 @@ function ListFactory(){
             displayName: 'Meta',
             value: 'meta',
         },
-        {
-            displayName: 'Markdown',
-            value: 'md',
-        },
     ];
 
     List.prototype.add = function(obj){
