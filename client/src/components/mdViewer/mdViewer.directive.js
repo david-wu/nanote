@@ -16,11 +16,13 @@ function MdViewer($timeout){
 
 function linkFunc($timeout, scope, element, attrs){
 
-    console.log(scope.note)
-    var mdi = new markdownit();
-    console.log(mdi.render('asdf'))
+    var mdi = new markdownit({
+        breaks: true
+    });
 
+    var container = element;
     scope.$watch('note.content', function(content){
-        element.html(mdi.render(content))
+        if(!content){return;}
+        container.html(mdi.render(content));
     })
 }

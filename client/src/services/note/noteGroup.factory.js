@@ -10,11 +10,6 @@ function NoteGroupFactory(List, Note, TagGroup){
 
     function NoteGroup(){
         List.call(this);
-
-
-        this.syncFrom();
-
-        this.addDefaultNote();
     }
 
     NoteGroup.prototype = Object.create(List.prototype);
@@ -62,9 +57,8 @@ function NoteGroupFactory(List, Note, TagGroup){
     };
 
     NoteGroup.prototype.addDefaultNote = function(){
-        for(var i=0; i < this.children.length; i++){
-            if(this.children[i].name==='intro'){return;}
-        }
+        if(this.children.length){return;}
+
         this.create({
             name: 'intro',
             content: 'Welcome to nanote!\nPress Esc to select the NoteListViewer!\nPress enter to select NoteViewer!\nTab and shift+tab to select actions while in NoteListViewer\n⌘+j and ⌘+k or arrow keys to scroll between notes\nCreate searchable #tags in your note content!\n',

@@ -1,7 +1,10 @@
-<div class="flex noteViewPage" style="height:100%;width:100%;">
+<div class="fills-parent flex">
     <list-viewer list="noteList" columns="listViewerColumns"></list-viewer>
     <note-meta-editor note="noteList.selection" ng-if="noteList.selectedAction==='meta'"></note-meta-editor>
-    <md-viewer note="noteList.selection"></md-viewer>
-    <note-viewer note="noteList.selection"></note-viewer>
+
+    <div class="scroll-y-container flex grow-1">
+        <note-editor class="grow-1 basis-0" style="display:block;" note="noteList.selection"></note-editor>
+        <md-viewer class="grow-1 basis-0" note="noteList.selection"></md-viewer>
+    </div>
 </div>
 

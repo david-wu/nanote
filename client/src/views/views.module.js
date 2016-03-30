@@ -1,6 +1,5 @@
 angular.module('views', [])
     .config(function($stateProvider, $urlRouterProvider){
-        $urlRouterProvider.otherwise('/noteViewPage');
 
         $stateProvider
             .state('noteViewPage', {
@@ -15,5 +14,7 @@ angular.module('views', [])
                 controller: 'ProfileViewer',
                 templateUrl: 'views/profileViewer/profileViewer.tpl.html',
             });
+
+        $urlRouterProvider.otherwise('/noteViewPage');
 
     });

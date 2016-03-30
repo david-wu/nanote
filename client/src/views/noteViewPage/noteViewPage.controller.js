@@ -6,7 +6,12 @@ angular.module('views')
     ]);
 
 function NoteViewPage($scope, NoteGroup){
+
     $scope.noteList = new NoteGroup();
+    $scope.noteList.syncFrom();
+    if(!$scope.noteList.children.length){
+        $scope.noteList.addDefaultNote();
+    }
 
     $scope.listViewerColumns = [
         {
@@ -14,6 +19,10 @@ function NoteViewPage($scope, NoteGroup){
                 return d.name;
             },
         },
+        {
+            html: function(d){
+                return d.tags && d.tags.join(', ');
+            }
+        },
     ];
-
 }

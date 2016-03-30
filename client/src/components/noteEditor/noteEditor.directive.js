@@ -9,7 +9,7 @@ function NoteEditor($timeout){
         scope: {
             note: '=?',
         },
-        templateUrl: 'components/noteViewer/noteEditor/noteEditor.tpl.html',
+        templateUrl: 'components/noteEditor/noteEditor.tpl.html',
         link: linkFunc.bind(null, $timeout),
     };
 }
@@ -18,7 +18,14 @@ function linkFunc($timeout, scope, element, attrs){
 
     var editor = ace.edit(element[0]);
     editor.$blockScrolling = Infinity;
-    editor.setTheme('ace/theme/monokai');
+
+    editor.setOptions({
+        theme: 'ace/theme/monokai',
+        maxLines: Infinity,
+        showGutter: false,
+        showPrintMargin: false,
+    });
+
     if(scope.note){
         editor.setValue(scope.note.content);
         editor.clearSelection();

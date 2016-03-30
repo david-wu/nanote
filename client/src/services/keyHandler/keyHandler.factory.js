@@ -8,45 +8,43 @@ function KeyHandlerFactory(){
 
     function KeyHandler(){
         this.handlers = [];
-
-        this.applyListeners();
+        this.applyHandlers();
     }
 
-    KeyHandler.prototype.applyListeners = function(){
-        var that = this;
-        $('body').on('keydown', function(e){
-            if(e.metaKey){
-                switch(e.keyCode){
-                    case 74:
-                        return that.trigger('commandJ', e);
-                    case 75:
-                        return that.trigger('commandK', e);
-                }
+    KeyHandler.prototype.applyHandlers = function(){
+        $('body').on('keydown', this.keyEventHandler.bind(this));
+    };
+
+    KeyHandler.prototype.keyEventHandler = function(e){
+        if(e.metaKey){
+            switch(e.keyCode){
+                case 74:
+                    return this.trigger('commandJ', e);
+                case 75:
+                    return this.trigger('commandK', e);
             }
+        }
 
-
-            if(e.shiftKey){
-                switch(e.keyCode){
-                    case 9:
-                        return that.trigger('shiftTab', e);
-                }
-            }
-
+        if(e.shiftKey){
             switch(e.keyCode){
                 case 9:
-                    return that.trigger('tab', e);
-                case 37:
-                    return that.trigger('left', e);
-                case 38:
-                    return that.trigger('up', e);
-                case 39:
-                    return that.trigger('right', e);
-                case 40:
-                    return that.trigger('down', e);
+                    return this.trigger('shiftTab', e);
             }
-        });
-    }
+        }
 
+        switch(e.keyCode){
+            case 9:
+                return this.trigger('tab', e);
+            case 37:
+                return this.trigger('left', e);
+            case 38:
+                return this.trigger('up', e);
+            case 39:
+                return this.trigger('right', e);
+            case 40:
+                return this.trigger('down', e);
+        }
+    };
 
     KeyHandler.prototype.trigger = function(eventName, event){
         for(var i=this.handlers.length-1; i>=0; i--){

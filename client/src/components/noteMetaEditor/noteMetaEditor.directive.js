@@ -9,7 +9,7 @@ function NoteMetaEditor(KeyHandler){
         scope: {
             note: '=',
         },
-        templateUrl: 'components/noteViewer/noteMetaEditor/noteMetaEditor.tpl.html',
+        templateUrl: 'components/noteMetaEditor/noteMetaEditor.tpl.html',
         link: linkFunc.bind(null, KeyHandler),
     };
 }

@@ -20,10 +20,6 @@ function ListViewer($timeout, Column, KeyHandler){
 
 function linkFunc($timeout, Column, KeyHandler, scope, element, attrs){
 
-    // setInterval(function(){
-    //     console.log(scope.list.getTags())
-    // }, 2000);
-
     scope.$watchCollection('columns', function(column){
         scope.viewerColumns = _.map(scope.columns, function(column){
             return new Column(column);
