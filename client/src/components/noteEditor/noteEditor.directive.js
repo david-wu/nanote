@@ -36,6 +36,7 @@ function linkFunc($timeout, scope, element, attrs){
         if(scope.note){
             scope.note.setContent(editor.getValue());
         }
+        $timeout(_.noop);
     });
 
     scope.$watch('note', function(currNote, prevNote){

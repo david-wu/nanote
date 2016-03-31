@@ -34,8 +34,6 @@ function linkFunc(scope, element, attrs){
 
 
 
-
-
     // Selects the inputEl when escape key is pressed
     $('body').on('keydown', changeSelection);
     scope.$on('$destroy', function(){

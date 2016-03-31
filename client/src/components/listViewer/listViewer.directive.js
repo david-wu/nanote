@@ -53,27 +53,29 @@ function linkFunc($timeout, Column, KeyHandler, scope, element, attrs){
 
     var keyHandler = {
         commandJ: function(e){
+            e.preventDefault();
             scope.list.selectBelow();
             $timeout(_.noop);
-            e.preventDefault();
         },
         down: function(e){
+            e.preventDefault();
             scope.list.selectBelow();
             $timeout(_.noop);
-            e.preventDefault();
         },
         commandK: function(e){
+            e.preventDefault();
             scope.list.selectAbove();
             $timeout(_.noop);
-            e.preventDefault();
         },
         up: function(e){
+            e.preventDefault();
             scope.list.selectAbove();
             $timeout(_.noop);
-            e.preventDefault();
         },
         tab: function(e){
             if(!scope.form.focus){return;}
+            e.preventDefault();
+
             var actions = _.map(scope.list.actions, 'value');
             var index = _.indexOf(actions, scope.list.selectedAction)
             if(++index > actions.length-1){
@@ -81,10 +83,11 @@ function linkFunc($timeout, Column, KeyHandler, scope, element, attrs){
             }
             scope.list.selectedAction = scope.list.actions[index].value;
             $timeout(_.noop);
-            e.preventDefault();
         },
         shiftTab: function(e){
             if(!scope.form.focus){return;}
+            e.preventDefault();
+
             var actions = _.map(scope.list.actions, 'value');
             var index = _.indexOf(actions, scope.list.selectedAction)
             if(--index < 0){
@@ -92,7 +95,6 @@ function linkFunc($timeout, Column, KeyHandler, scope, element, attrs){
             }
             scope.list.selectedAction = scope.list.actions[index].value;
             $timeout(_.noop);
-            e.preventDefault();
         },
     };
 
