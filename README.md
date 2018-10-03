@@ -1,9 +1,8 @@
 # Nanote
 
-Potentially useful someday!
-Sort of inspired by nvAlt
-Idea is to quickly create, organize, and search notes
-Will improve this someday
+Potentially useful someday!  Sort of inspired by nvAlt.
+
+My goal was to enable quickly creating, organizing, and searching of notes
 
 ### Developing
 
