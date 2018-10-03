@@ -2,6 +2,4 @@
 .tmp
 .log
 node_modules
-client/build
-server/secret.keys
-server/secret2.keys
+build
